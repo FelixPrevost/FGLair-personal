@@ -108,7 +108,11 @@ class SwingMode(IntEnum):
     SWING_VERTICAL = 1
     SWING_HORIZONTAL = 2
     SWING_BOTH = 3
-
+    
+@unique
+class PowerfulMode(IntEnum):
+    OFF = 0
+    ON = 1
 
 @unique
 class Capability(IntEnum):
