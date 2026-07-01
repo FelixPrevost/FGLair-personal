@@ -14,6 +14,7 @@ from .fujitsu_consts import (
     OPERATION_MODE,
     OUTDOOR_TEMPERATURE,
     ADJUST_TEMPERATURE,
+    POWERFUL_MODE,
     FAN_SPEED,
     HORIZ_SWING_PARAM_MAP,
     VERT_SWING_PARAM_MAP,
@@ -31,6 +32,7 @@ from .fujitsu_consts import (
     Capability,
     OpMode,
     SwingMode,
+    PowerfulMode,
     FanSpeed,
 )
 
@@ -369,6 +371,18 @@ class FujitsuHVAC(Device):
 
         return modes
 
+    @property
+    def powerful_mode(self) -> PowerfulMode:
+        return PowerfulMode(self.property_values[POWERFUL_MODE])
+
+    @powerful_mode.setter
+    def powerful_mode(self, val: PowerfulMode):
+        self.set_property_value(POWERFUL_MODE, val)
+
+    async def async_set_powerful_mode(self, val: PowerfulMode):
+        await self.async_set_property_value(POWERFUL_MODE, val)
+
+    
     @property
     def swing_mode(self) -> SwingMode:
         if self.horizontal_swing and self.vertical_swing:
