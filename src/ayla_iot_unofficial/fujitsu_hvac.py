@@ -169,11 +169,17 @@ class FujitsuHVAC(Device):
     @check_online
     def update(self, props: list[str] | None=None):
         super().update(props)
+        # --- ADDED FOR DIAGNOSTICS ---
+        _LOGGER.warning("FUJITSU DIAGNOSTIC - Raw Keys: %s", list(self.property_values.keys()))
+        _LOGGER.warning("FUJITSU DIAGNOSTIC - All Values: %s", json.dumps(self.property_values, indent=2, default=str))
 
     @check_online_async
     async def async_update(self, props: list[str] | None=None):
         await super().async_update(props)
         await self.refresh_sensed_temp()
+        # --- ADDED FOR DIAGNOSTICS ---
+        _LOGGER.warning("FUJITSU DIAGNOSTIC - Raw Keys: %s", list(self.property_values.keys()))
+        _LOGGER.warning("FUJITSU DIAGNOSTIC - All Values: %s", json.dumps(self.property_values, indent=2, default=str))
 
     def get_last_datapoint(self, property: str) -> dict[str, Any] | None:
         endpoint = self.set_property_endpoint(property)
