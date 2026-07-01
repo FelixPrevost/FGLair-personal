@@ -15,6 +15,7 @@ OPERATION_MODE = "operation_mode"
 OUTDOOR_TEMPERATURE = "outdoor_temperature"
 FAN_SPEED = "fan_speed"
 ADJUST_TEMPERATURE = "adjust_temperature"
+POWERFUL_MODE = "powerful_mode"
 AF_HORIZONTAL_MOVE_STEP1 = "af_horizontal_move_step1"
 AF_HORIZONTAL_SWING = "af_horizontal_swing"
 AF_VERTICAL_MOVE_STEP1 = "af_vertical_move_step1"
@@ -108,7 +109,11 @@ class SwingMode(IntEnum):
     SWING_VERTICAL = 1
     SWING_HORIZONTAL = 2
     SWING_BOTH = 3
-
+    
+@unique
+class PowerfulMode(IntEnum):
+    OFF = 0
+    ON = 1
 
 @unique
 class Capability(IntEnum):
