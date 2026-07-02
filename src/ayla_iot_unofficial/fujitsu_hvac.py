@@ -445,6 +445,9 @@ class FujitsuHVAC(Device):
         if not self.has_capability(Capability.SWING_HORIZONTAL):
             raise SettingNotSupportedError("Device does not support horizontal swing")
 
+        self.set_property_value(HORIZ_SWING_PARAM_MAP[self.model], SWING_VAL_MAP[self.model][val])
+
+
 # --- Vertical position ---
 
 @property
@@ -503,7 +506,7 @@ async def async_set_horizontal_position(self, val: int):
         )
     await self.async_set_property_value(AF_HORIZONTAL_DIRECTION, val)
 
-        self.set_property_value(HORIZ_SWING_PARAM_MAP[self.model], SWING_VAL_MAP[self.model][val])
+
 
     async def async_set_horizontal_swing(self, val: bool):
         if not self.has_capability(Capability.SWING_HORIZONTAL):
