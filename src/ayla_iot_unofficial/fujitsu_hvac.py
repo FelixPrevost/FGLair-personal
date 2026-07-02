@@ -20,6 +20,10 @@ from .fujitsu_consts import (
     VERT_SWING_PARAM_MAP,
     SENSED_TEMP_SUPPORTED,
     SWING_VAL_MAP,
+    AF_VERTICAL_DIRECTION,
+    AF_VERTICAL_NUM_DIR,
+    AF_HORIZONTAL_DIRECTION,
+    AF_HORIZONTAL_NUM_DIR,
     MIN_SENSED_TEMP,
     MAX_SENSED_TEMP,
     MIN_SENSED_CELSIUS,
@@ -440,6 +444,64 @@ class FujitsuHVAC(Device):
     def horizontal_swing(self, val: bool):
         if not self.has_capability(Capability.SWING_HORIZONTAL):
             raise SettingNotSupportedError("Device does not support horizontal swing")
+
+# --- Vertical position ---
+
+@property
+def supports_vertical_position(self) -> bool:
+    return AF_VERTICAL_DIRECTION in self.property_values
+
+@property
+def vertical_position_count(self) -> int:
+    return int(self.property_values[AF_VERTICAL_NUM_DIR])
+
+@property
+def vertical_position(self) -> int:
+    return int(self.property_values[AF_VERTICAL_DIRECTION])
+
+@vertical_position.setter
+def vertical_position(self, val: int):
+    if not (1 <= val <= self.vertical_position_count):
+        raise SettingNotSupportedError(
+            f"Vertical position {val} out of range (1-{self.vertical_position_count})"
+        )
+    self.set_property_value(AF_VERTICAL_DIRECTION, val)
+
+async def async_set_vertical_position(self, val: int):
+    if not (1 <= val <= self.vertical_position_count):
+        raise SettingNotSupportedError(
+            f"Vertical position {val} out of range (1-{self.vertical_position_count})"
+        )
+    await self.async_set_property_value(AF_VERTICAL_DIRECTION, val)
+
+# --- Horizontal position ---
+
+@property
+def supports_horizontal_position(self) -> bool:
+    return AF_HORIZONTAL_DIRECTION in self.property_values
+
+@property
+def horizontal_position_count(self) -> int:
+    return int(self.property_values[AF_HORIZONTAL_NUM_DIR])
+
+@property
+def horizontal_position(self) -> int:
+    return int(self.property_values[AF_HORIZONTAL_DIRECTION])
+
+@horizontal_position.setter
+def horizontal_position(self, val: int):
+    if not (1 <= val <= self.horizontal_position_count):
+        raise SettingNotSupportedError(
+            f"Horizontal position {val} out of range (1-{self.horizontal_position_count})"
+        )
+    self.set_property_value(AF_HORIZONTAL_DIRECTION, val)
+
+async def async_set_horizontal_position(self, val: int):
+    if not (1 <= val <= self.horizontal_position_count):
+        raise SettingNotSupportedError(
+            f"Horizontal position {val} out of range (1-{self.horizontal_position_count})"
+        )
+    await self.async_set_property_value(AF_HORIZONTAL_DIRECTION, val)
 
         self.set_property_value(HORIZ_SWING_PARAM_MAP[self.model], SWING_VAL_MAP[self.model][val])
 
