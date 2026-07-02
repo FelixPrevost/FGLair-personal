@@ -21,6 +21,11 @@ AF_HORIZONTAL_SWING = "af_horizontal_swing"
 AF_VERTICAL_MOVE_STEP1 = "af_vertical_move_step1"
 AF_VERTICAL_SWING = "af_vertical_swing"
 
+AF_VERTICAL_DIRECTION = "af_vertical_direction"
+AF_VERTICAL_NUM_DIR = "af_vertical_num_dir"
+AF_HORIZONTAL_DIRECTION = "af_horizontal_direction"
+AF_HORIZONTAL_NUM_DIR = "af_horizontal_num_dir"
+
 MIN_TEMP_HEAT = 16.0
 MAX_TEMP_HEAT = 30.0
 
